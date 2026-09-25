@@ -18,7 +18,7 @@ Safety monitor firmware running on **STM32G4** (G474 class, with FPU). Its ONE j
 1. No dynamic memory, no recursion, no unbounded loops. Bare-metal super loop + timer interrupt (D-012); loop duration is measured and its budget documented.
 2. All inputs are clipped to their physical range. Out-of-range or E2E `INVALID` (timeout/counter/CRC) → safe default. The exact behavior in this case is **open decision Q-002**: don't choose it yourself, ask the user.
 3. rt-core's heartbeat is monitored. On loss, the node enters its own degraded mode and publishes this to CAN.
-4. Listens to the vehicle bus in **silent (bus-monitoring) mode** only (wheel speed, etc.) and never transmits onto it. Publishes only on the platform bus.
+4. Not connected to the vehicle bus (D-021). Vehicle speed comes from rt-core's E2E-protected republish on the platform bus; loss or INVALID → Q-002 behaviour. Publishes only on the platform bus.
 5. The `safety-reviewer` agent is invoked after every change.
 
 ## Dependencies
