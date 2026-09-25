@@ -1,5 +1,7 @@
 # CLAUDE.md — moto-safety-node
 
+@.claude/PLATFORM-RULES.md
+
 ## What this repo is
 
 Safety monitor firmware running on **STM32G4** (G474 class, with FPU). Its ONE job: the **cornering safety decision** (Layer 1, deterministic, closed form: `v_max = √(µ·g·R)`, `tan(θ) = v²/(g·R)`) and driving the lean-angle LED ring. It decides independently even if rt-core, the Raspi, or the phone crash.
