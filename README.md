@@ -2,7 +2,7 @@
 
 Part of [moto-platform](https://github.com/moto-platform), an SDV-style diagnostics, telemetry and rider-assistance platform for motorcycles (first vehicle: Honda CL250).
 
-Safety monitor firmware running on **STM32G4** (G474 class, with FPU). Its ONE job: the **cornering safety decision** (Layer 1, deterministic, closed form: `v_max = √(µ·g·R)`, `tan(θ) = v²/(g·R)`) and driving the lean-angle LED ring. It decides independently even if rt-core, the Raspi, or the phone crash.
+Firmware of the **safety partition**: the Cortex-M4 core of the **STM32H755** (D-072); the Cortex-M7 runs `moto-rt-core`. It holds the cornering safety decision (D-041) with its own fallback IMU (D-042), the blind-spot decision, the immobilizer, and drives the lean-angle LED ring and mirror LEDs. It talks to rt-core only through an E2E-checked inter-core mailbox and keeps deciding when rt-core, the Raspi or the phone crash.
 
 **Status:** skeleton, no code yet. The build system, tests and CI are added by `/repo-bootstrap moto-safety-node` when work on this repo starts (setup order: `moto-vehicle-defs/docs/ARCHITECTURE.md` §9).
 
